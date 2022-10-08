@@ -23,7 +23,7 @@ module.exports = {
     },
     matic: {
       url: "https://polygon-mainnet.g.alchemy.com/v2/vD4ASgxHMy0stFwKZiWTPfFseAFRp8cm",
-      accounts: [bfbaeaf25222ff22cf2a6af9676458ef5ef69c924eeaddad52a95e615dd776d0]
+      accounts: [//Private key]
     },
   },
   solidity: {
