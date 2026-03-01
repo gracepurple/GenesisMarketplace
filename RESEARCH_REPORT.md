@@ -111,7 +111,7 @@ This struct stores the on-chain listing information for each NFT, including the 
 - `_tokenIds` — Counter tracking the most recently minted token ID
 - `_itemsSold` — Counter tracking the number of completed sales
 - `owner` — The contract deployer's address (receives listing fees)
-- `listPrice` — The listing fee (set to 0.01 ETH)
+- `listPrice` — The listing fee (set to 0.01 MATIC)
 - `idToListedToken` — Mapping from token ID to `ListedToken` details
 
 ### 3.3 Core Functions
@@ -274,14 +274,14 @@ Metadata URL passed to createToken() as tokenURI
 | Aspect                          | Status       | Notes                                                                 |
 | ------------------------------- | ------------ | --------------------------------------------------------------------- |
 | **Access Control**              | Partial      | `updateListPrice` restricted to owner; other functions are open       |
-| **Reentrancy Protection**       | Not present  | `executeSale` transfers ETH after state updates (follows CEI pattern partially) |
+| **Reentrancy Protection**       | Not present  | `executeSale` transfers MATIC after state updates (follows CEI pattern partially) |
 | **Integer Overflow**            | Mitigated    | Solidity 0.8.x has built-in overflow checks                          |
 | **Price Validation**            | Present      | Requires `price > 0` and exact payment matching                      |
 | **Listing Fee Enforcement**     | Present      | `createListedToken` requires `msg.value == listPrice`                 |
 
 ### 6.2 Potential Vulnerabilities
 
-1. **No reentrancy guard**: The `executeSale` function performs external calls (ETH transfers) after state changes. While the Checks-Effects-Interactions pattern is partially followed, adding OpenZeppelin's `ReentrancyGuard` would provide stronger protection.
+1. **No reentrancy guard**: The `executeSale` function performs external calls (MATIC transfers) after state changes. While the Checks-Effects-Interactions pattern is partially followed, adding OpenZeppelin's `ReentrancyGuard` would provide stronger protection.
 
 2. **No token de-listing mechanism**: Once listed, tokens cannot be removed from the marketplace by the seller without a sale occurring.
 
@@ -311,7 +311,7 @@ Metadata URL passed to createToken() as tokenURI
 | **Royalty Support**        | No                 | Yes (EIP-2981) | Yes      |
 | **Lazy Minting**           | No                 | Yes         | Yes         |
 | **Collection Support**     | Single contract    | Multiple    | Multiple    |
-| **Listing Fee**            | 0.01 ETH fixed     | 2.5% sale   | 2.5% sale   |
+| **Listing Fee**            | 0.01 MATIC fixed   | 2.5% sale   | 2.5% sale   |
 | **Decentralized Storage**  | IPFS (Pinata)      | IPFS/Arweave| IPFS        |
 
 ### 7.2 Strengths
